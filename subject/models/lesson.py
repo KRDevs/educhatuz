@@ -68,3 +68,14 @@ class AcademicPartReaction(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.reaction} - {self.academic_part.lesson.title}"
+
+class AcademicPartView(models.Model):
+    academic_part = models.ForeignKey(AcademicPart, on_delete=models.CASCADE, related_name="views_by_students")
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    viewed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('academic_part', 'student')
+
+    def __str__(self):
+        return f"{self.student.user.username} {self.academic_part.lesson.title} ni ko'rgan"

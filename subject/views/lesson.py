@@ -7,6 +7,8 @@ from subject.forms import LessonForm, AcademicPartForm, AcademicPartFileForm
 from subject.models import Lesson, AcademicPart, Comment, AcademicPartReaction, Subject, AcademicPartFile
 from django.contrib import messages
 
+from subject.models.lesson import AcademicPartView
+
 app_name = 'subject'
 
 
@@ -180,10 +182,15 @@ def lesson_detail_student(request, pk):
     for part in academic_parts:
         part.views += 1
         part.save(update_fields=['views'])
+
+        # Talabaning ko‘rganini yozish
+        if request.user.is_authenticated and hasattr(request.user, 'studentprofile'):
+            student = request.user.studentprofile
+            AcademicPartView.objects.get_or_create(student=student, academic_part=part)
+
         part.likes_count = part.reactions.filter(reaction=AcademicPartReaction.LIKE).count()
         part.dislikes_count = part.reactions.filter(reaction=AcademicPartReaction.DISLIKE).count()
 
-    # Foydalanuvchi tomonidan yuborilgan izoh (comment) ni qabul qilish
     if request.method == 'POST':
         comment_text = request.POST.get('comment_text')
         part_id = request.POST.get('part_id')
@@ -193,7 +200,7 @@ def lesson_detail_student(request, pk):
             part = get_object_or_404(AcademicPart, id=part_id)
             parent = Comment.objects.filter(id=parent_id).first() if parent_id else None
             Comment.objects.create(academic_part=part, user=request.user, text=comment_text, parent=parent)
-            return redirect(request.path_info)  # sahifani yangilaydi
+            return redirect(request.path_info)
 
     context = {
         'lesson': lesson,

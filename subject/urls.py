@@ -1,5 +1,6 @@
 from django.urls import path
 
+from .views.academic_part_view import lesson_students_view
 from .views.lesson import lesson_detail, like_reaction, dislike_reaction, create_lesson, edit_lesson, delete_lesson, \
     delete_file, lesson_detail_student
 from .views.live_sessions import teacher_live_sessions, create_live_session, edit_live_session, delete_live_session, \
@@ -28,5 +29,5 @@ urlpatterns = [
     path('live-sessions/<int:session_id>/join/', join_live_session, name='join_live_session'),
     path('live-sessions/student/', student_live_sessions, name='student_live_sessions'),
     path('live-sessions/student/<int:session_id>/join/', join_live_session_student, name='join_live_session_student'),
-
+    path('lesson/<int:lesson_id>/students/', lesson_students_view, name='lesson_students'),
 ]
