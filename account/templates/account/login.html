@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduChat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.2/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @media(max-width:1520px) {
+            .left-svg {
+                display: none;
+            }
+        }
+
+        /* small css for the mobile nav close */
+        #nav-mobile-btn.close span:first-child {
+            transform: rotate(45deg);
+            top: 4px;
+            position: relative;
+            background: #a0aec0;
+        }
+
+        #nav-mobile-btn.close span:nth-child(2) {
+            transform: rotate(-45deg);
+            margin-top: 0px;
+            background: #a0aec0;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden antialiased">
+<header class="relative z-50 w-full h-24">
+    <div class="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">
+
+        <a class="relative flex inline-block h-5 h-full font-black leading-none">
+            <a class="relative flex items-center inline-block h-5 h-full font-black leading-none">
+            <img src="/static/images/logo_book.jpg" class="w-20 h-20">
+            <span class="text-xl text-gray-800">EduChat<span class="text-pink-500">.</span></span>
+            </a>
+        </a>
+
+        <div
+                class="absolute left-0 flex-col items-center justify-center hidden w-full pb-8 mt-48 border-b border-gray-200 md:relative md:w-auto md:bg-transparent md:border-none md:mt-0 md:flex-row md:p-0 md:items-end md:flex md:justify-between">
+            <svg class="absolute top-0 left-0 hidden w-screen max-w-3xl -mt-64 -ml-12 lg:block"
+                 viewBox="0 0 818 815" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="c">
+                        <stop stop-color="#E614F2" offset="0%"/>
+                        <stop stop-color="#FC3832" offset="100%"/>
+                    </linearGradient>
+                    <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="f">
+                        <stop stop-color="#657DE9" offset="0%"/>
+                        <stop stop-color="#1C0FD7" offset="100%"/>
+                    </linearGradient>
+                    <filter x="-4.7%" y="-3.3%" width="109.3%" height="109.3%" filterUnits="objectBoundingBox"
+                            id="a">
+                        <feOffset dy="8" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                        <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+                        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" in="shadowBlurOuter1"/>
+                    </filter>
+                    <filter x="-4.7%" y="-3.3%" width="109.3%" height="109.3%" filterUnits="objectBoundingBox"
+                            id="d">
+                        <feOffset dy="8" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                        <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+                        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1"/>
+                    </filter>
+                    <path
+                            d="M160.52 108.243h497.445c17.83 0 24.296 1.856 30.814 5.342 6.519 3.486 11.635 8.602 15.12 15.12 3.487 6.52 5.344 12.985 5.344 30.815v497.445c0 17.83-1.857 24.296-5.343 30.814-3.486 6.519-8.602 11.635-15.12 15.12-6.52 3.487-12.985 5.344-30.815 5.344H160.52c-17.83 0-24.296-1.857-30.814-5.343-6.519-3.486-11.635-8.602-15.12-15.12-3.487-6.52-5.343-12.985-5.343-30.815V159.52c0-17.83 1.856-24.296 5.342-30.814 3.486-6.519 8.602-11.635 15.12-15.12 6.52-3.487 12.985-5.343 30.815-5.343z"
+                            id="b"/>
+                    <path
+                            d="M159.107 107.829H656.55c17.83 0 24.296 1.856 30.815 5.342 6.518 3.487 11.634 8.602 15.12 15.12 3.486 6.52 5.343 12.985 5.343 30.816V656.55c0 17.83-1.857 24.296-5.343 30.815-3.486 6.518-8.602 11.634-15.12 15.12-6.519 3.486-12.985 5.343-30.815 5.343H159.107c-17.83 0-24.297-1.857-30.815-5.343-6.519-3.486-11.634-8.602-15.12-15.12-3.487-6.519-5.343-12.985-5.343-30.815V159.107c0-17.83 1.856-24.297 5.342-30.815 3.487-6.519 8.602-11.634 15.12-15.12 6.52-3.487 12.985-5.343 30.816-5.343z"
+                            id="e"/>
+                </defs>
+                <g fill="none" fill-rule="evenodd" opacity=".9">
+                    <g transform="rotate(65 416.452 409.167)">
+                        <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+                        <use fill="url(#c)" xlink:href="#b"/>
+                    </g>
+                    <g transform="rotate(29 421.929 414.496)">
+                        <use fill="#000" filter="url(#d)" xlink:href="#e"/>
+                        <use fill="url(#f)" xlink:href="#e"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div id="nav-mobile-btn"
+             class="absolute top-0 right-0 z-50 block w-6 mt-8 mr-10 cursor-pointer select-none md:hidden sm:mt-10">
+            <span class="block w-full h-1 mt-2 duration-200 transform bg-gray-800 rounded-full sm:mt-1"></span>
+            <span class="block w-full h-1 mt-1 duration-200 transform bg-gray-800 rounded-full"></span>
+        </div>
+
+    </div>
+</header>
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <form method="post" class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Kirish</h2>
+        {% csrf_token %}
+
+        <!-- Foydalanuvchi nomi -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Foydalanuvchi nomi</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                    <i class="fas fa-user"></i>
+                </span>
+                <input type="text" name="username" placeholder="username123"
+                       class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            </div>
+        </div>
+
+        <!-- Parol -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Parol</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                    <i class="fas fa-lock"></i>
+                </span>
+                <input id="password" type="password" name="password" placeholder="••••••••"
+                       class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer"
+                      onclick="togglePassword()">
+                    <i id="toggleIcon" class="fas fa-eye"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- Submit tugma -->
+        <button type="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded-xl font-semibold hover:bg-blue-700 transition duration-200">
+            Kirish
+        </button>
+    </form>
+</div>
+
+<!-- Show/Hide Parol Script -->
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const toggleIcon = document.getElementById("toggleIcon");
+        const type = passwordInput.getAttribute("type");
+
+        if (type === "password") {
+            passwordInput.setAttribute("type", "text");
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.setAttribute("type", "password");
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        }
+    }
+</script>
