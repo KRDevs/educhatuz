@@ -24,7 +24,7 @@ def join_live_session_student(request, session_id):
 
     payload = {
         'aud': 'jitsi',
-        'iss': 'meet.educhat',
+        'iss': 'educhat',
         'sub': 'meet.educhat.uz',
         'room': room_name,
         'exp': datetime.datetime.now() + datetime.timedelta(hours=1),
