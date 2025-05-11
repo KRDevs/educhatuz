@@ -24,8 +24,8 @@ def join_live_session_student(request, session_id):
 
     payload = {
         'aud': 'jitsi',
-        'iss': 'educhat',
-        'sub': 'educhat.uz',
+        'iss': 'meet.educhat',
+        'sub': 'meet.educhat.uz',
         'room': room_name,
         'exp': datetime.datetime.now() + datetime.timedelta(hours=1),
         'moderator': is_teacher,
@@ -40,7 +40,7 @@ def join_live_session_student(request, session_id):
 
     token = jwt.encode(payload, settings.JWT_SECRET, algorithm='HS256')
 
-    jitsi_url = f"https://educhat.uz/{room_name}?jwt={token}"
+    jitsi_url = f"https://meet.educhat.uz/{room_name}?jwt={token}"
 
     return render(request, 'live_session_room_student.html', {
         'session': session,
