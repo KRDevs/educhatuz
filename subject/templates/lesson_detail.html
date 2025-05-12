@@ -85,37 +85,51 @@
         </div>
     </div>
 </nav>
-<div class="max-w-5xl mx-auto py-10 px-4 space-y-10">
-    <h1 class="text-3xl font-bold text-gray-900 border-b pb-4">{{ lesson.title }} - Dars Tafsilotlari</h1>
+<div class="max-w-5xl mx-auto py-10 px-4 space-y-12">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 border-b pb-4 flex items-center gap-2">
+        🎓 {{ lesson.title }} <span class="text-xl font-medium text-gray-500">— Dars tafsilotlari</span>
+    </h1>
 
     {% for part in academic_parts %}
-    <div class="bg-white rounded-2xl shadow-lg p-6 space-y-6">
-        <div>
-            <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
-                📖 <span>Nazariy qism</span>
-            </h2>
-            <div class="prose max-w-none mt-2">{{ part.body|safe }}</div>
+    <div class="bg-white rounded-3xl shadow-xl p-8 space-y-6 transition hover:shadow-2xl">
+        <!-- Title -->
+        <div class="flex items-center gap-3">
+            <div class="text-2xl">📖</div>
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800">Nazariy qism</h2>
         </div>
-
+        <!-- Video -->
         {% if part.video %}
-        <div>
-            <video controls class="w-full rounded-xl shadow-md ring-2 ring-gray-200">
+        <div class="mt-4">
+            <video controls class="w-full rounded-xl shadow-md ring-2 ring-blue-100">
                 <source src="{{ part.video.url }}" type="video/mp4">
             </video>
         </div>
         {% endif %}
+        <!-- Body file (ya'ni part.body nomi) -->
+        {% if part.body %}
+        <div>
+            <h3 class="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                📄 Nazariy qism fayli:
+            </h3>
+            <div class="flex items-center bg-gray-50 border border-gray-200 p-3 rounded-lg shadow-sm w-fit">
+                <i class="fas fa-file-word text-blue-500 mr-2"></i>
+                <span class="text-gray-800 truncate">{{ part.body.name|basename }}</span>
+            </div>
+        </div>
+        {% endif %}
 
-        <!-- View & Reaction -->
-        <div class="flex flex-wrap items-center justify-between text-sm text-gray-600 border-t pt-4">
-            <div>👁 {{ part.views }} marta ko‘rilgan</div>
-            <div class="flex gap-3">
+
+        <!-- Views and Reactions -->
+        <div class="flex flex-wrap items-center justify-between text-sm text-gray-500 border-t pt-4">
+            <div>👁 <span class="font-semibold">{{ part.views }}</span> marta ko‘rilgan</div>
+            <div class="flex gap-4">
                 <form action="{% url 'subject:like_reaction' part.id %}" method="POST">{% csrf_token %}
-                    <button class="flex items-center gap-1 text-green-600 hover:text-green-800 transition">
+                    <button class="flex items-center gap-1 text-green-600 hover:text-green-700 font-semibold transition">
                         <i class="fas fa-thumbs-up"></i> ({{ part.likes_count }})
                     </button>
                 </form>
                 <form action="{% url 'subject:dislike_reaction' part.id %}" method="POST">{% csrf_token %}
-                    <button class="flex items-center gap-1 text-red-600 hover:text-red-800 transition">
+                    <button class="flex items-center gap-1 text-red-500 hover:text-red-600 font-semibold transition">
                         <i class="fas fa-thumbs-down"></i> ({{ part.dislikes_count }})
                     </button>
                 </form>
@@ -125,24 +139,29 @@
         <!-- Files -->
         {% if part.files.all %}
         <div>
-            <h3 class="text-md font-semibold text-gray-800 mb-2">📂 Darsga doir fayllar:</h3>
-            <ul class="list-disc list-inside space-y-1 text-sm text-blue-600">
+            <h3 class="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                📁 Darsga doir fayllar:
+            </h3>
+            <ul class="space-y-2 text-sm">
                 {% for file in part.files.all %}
-                <li><a href="{{ file.file.url }}" class="hover:underline" download>{{ file.file.name|basename }}</a>
+                <li class="flex items-center bg-gray-50 border border-gray-200 p-3 rounded-lg shadow-sm">
+                    <i class="fas fa-file-alt text-blue-500 mr-2"></i>
+                    <span class="text-gray-800 truncate">{{ file.file.name|basename }}</span>
                 </li>
                 {% endfor %}
             </ul>
         </div>
         {% endif %}
 
+
         <!-- Comments -->
         <div>
-            <h3 class="text-md font-semibold text-gray-800 mb-3">💬 Izohlar:</h3>
-            <ul class="space-y-2 mb-4">
+            <h3 class="text-md font-semibold text-gray-800 mt-6 mb-3">💬 Izohlar:</h3>
+            <ul class="space-y-3 mb-4">
                 {% for comment in part.comments.all %}
-                <li class="bg-gray-50 border border-gray-200 p-3 rounded-md">
+                <li class="bg-gray-50 border border-gray-200 p-4 rounded-lg shadow-sm">
                     <p class="text-sm font-semibold text-gray-900">{{ comment.user.username }}</p>
-                    <div class="text-sm text-gray-700 prose max-w-none mt-1">{{ comment.text|safe }}</div>
+                    <div class="text-sm text-gray-700 mt-1 prose max-w-none">{{ comment.text|safe }}</div>
                 </li>
                 {% empty %}
                 <li class="text-sm text-gray-500">Hozircha izoh yo‘q.</li>
@@ -153,23 +172,23 @@
                 {% csrf_token %}
                 <input type="hidden" name="part_id" value="{{ part.id }}">
                 <textarea name="comment_text"
-                          class="w-full border rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                           rows="3" placeholder="Izoh qoldiring..."></textarea>
                 <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 transition text-white px-5 py-2 rounded-lg shadow">
+                        class="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-2 rounded-md shadow font-medium">
                     Yuborish
                 </button>
             </form>
-
         </div>
     </div>
     {% endfor %}
 </div>
+
 </body>
 <script>
-function toggleReplyForm(commentId) {
-    const form = document.getElementById("reply-form-" + commentId);
-    form.classList.toggle("hidden");
-}
+    function toggleReplyForm(commentId) {
+        const form = document.getElementById("reply-form-" + commentId);
+        form.classList.toggle("hidden");
+    }
 </script>
 </html>

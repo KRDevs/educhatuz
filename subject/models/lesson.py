@@ -22,7 +22,7 @@ class Lesson(models.Model):
 
 class AcademicPart(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name="academic")
-    body = RichTextUploadingField()
+    body = models.FileField(upload_to="body_files/")
     video = models.FileField(upload_to="lesson_videos/", null=True, blank=True)
     views = models.PositiveIntegerField(default=0)
 
@@ -35,7 +35,7 @@ class AcademicPart(models.Model):
 
 
 class AcademicPartFile(models.Model):
-    academic_part = models.ForeignKey(AcademicPart, on_delete=models.CASCADE, related_name="files")
+    academic_part = models.ForeignKey(AcademicPart, on_delete=models.CASCADE, related_name="files",null=True,blank=True)
     file = models.FileField(upload_to="lesson_files/")
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
