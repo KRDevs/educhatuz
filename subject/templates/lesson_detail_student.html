@@ -90,22 +90,49 @@
 
     {% for part in academic_parts %}
     <div class="bg-white rounded-2xl shadow-lg p-6 space-y-6">
-        <div>
-            <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
-                📖 <span>Nazariy qism</span>
-            </h2>
-            <div class="prose max-w-none mt-2">{{ part.body|safe }}</div>
+        <!-- Header -->
+        <div class="flex items-center gap-2 text-xl font-semibold text-gray-800">
+            📖 <span>Nazariy qism</span>
         </div>
 
+        <!-- Video -->
         {% if part.video %}
         <div>
-            <video controls class="w-full rounded-xl shadow-md ring-2 ring-gray-200">
+            <video controls class="w-full rounded-xl shadow-md ring-2 ring-blue-100">
                 <source src="{{ part.video.url }}" type="video/mp4">
             </video>
         </div>
         {% endif %}
 
-        <!-- View & Reaction -->
+        <!-- Body file (DOCX) -->
+        {% if part.body %}
+        <div>
+            <h3 class="text-md font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                📄 Nazariy fayl:
+            </h3>
+            <div class="flex items-center bg-gray-50 border border-gray-200 p-3 rounded-lg shadow-sm w-fit">
+                <i class="fas fa-file-word text-blue-500 mr-2"></i>
+                <span class="text-gray-800 truncate">{{ part.body.name|basename }}</span>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Additional Files -->
+        {% if part.files.all %}
+        <div>
+            <h3 class="text-md font-semibold text-gray-800 mb-2">📂 Darsga doir fayllar:</h3>
+            <ul class="space-y-2 text-sm">
+                {% for file in part.files.all %}
+                <li class="flex items-center bg-gray-50 border border-gray-200 p-3 rounded-lg shadow-sm">
+                    <i class="fas fa-file-alt text-blue-500 mr-2"></i>
+                    <span class="text-gray-800 truncate">{{ file.file.name|basename }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Views and Reactions -->
         <div class="flex flex-wrap items-center justify-between text-sm text-gray-600 border-t pt-4">
             <div>👁 {{ part.views }} marta ko‘rilgan</div>
             <div class="flex gap-3">
@@ -122,22 +149,9 @@
             </div>
         </div>
 
-        <!-- Files -->
-        {% if part.files.all %}
-        <div>
-            <h3 class="text-md font-semibold text-gray-800 mb-2">📂 Darsga doir fayllar:</h3>
-            <ul class="list-disc list-inside space-y-1 text-sm text-blue-600">
-                {% for file in part.files.all %}
-                <li><a href="{{ file.file.url }}" class="hover:underline" download>{{ file.file.name|basename }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
         <!-- Comments -->
         <div>
-            <h3 class="text-md font-semibold text-gray-800 mb-3">💬 Izohlar:</h3>
+            <h3 class="text-md font-semibold text-gray-800 mt-6 mb-3">💬 Izohlar:</h3>
             <ul class="space-y-2 mb-4">
                 {% for comment in part.comments.all %}
                 <li class="bg-gray-50 border border-gray-200 p-3 rounded-md">
@@ -160,16 +174,16 @@
                     Yuborish
                 </button>
             </form>
-
         </div>
     </div>
     {% endfor %}
+
 </div>
 </body>
 <script>
-function toggleReplyForm(commentId) {
-    const form = document.getElementById("reply-form-" + commentId);
-    form.classList.toggle("hidden");
-}
+    function toggleReplyForm(commentId) {
+        const form = document.getElementById("reply-form-" + commentId);
+        form.classList.toggle("hidden");
+    }
 </script>
 </html>
